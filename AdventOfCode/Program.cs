@@ -1,2 +1,6 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using AdventOfCode.Solutions;
+
+var solution = new Day01();
+
+Console.WriteLine($"Part One: {solution.PartOne()}");
+Console.WriteLine($"Part Two: {solution.PartTwo()}");
