@@ -15,8 +15,8 @@ namespace AdventOfCode.Tests.Solutions
             var rucksack = new Rucksack(input);
 
             // Act
-            var firstCompartment = rucksack.GetCompartmentAsString(1);
-            var secondCompartment = rucksack.GetCompartmentAsString(2);
+            var firstCompartment = rucksack.FirstCompartment;
+            var secondCompartment = rucksack.SecondCompartment;
 
             // Assert
             Assert.That(firstCompartment, Is.EqualTo(expectedFirstCompartment));
