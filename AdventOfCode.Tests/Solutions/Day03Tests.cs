@@ -74,6 +74,39 @@ namespace AdventOfCode.Tests.Solutions
         }
 
         [Test]
+        public void ParseRucksackGroups_ReturnsGroupsWithCorrectNumberOfRucksacks()
+        {
+            // Arrange
+            var solution = new Day03();
+
+            // Act
+            var rucksackGroups = solution.ParseRucksackGroups(@"Input/Day03_Example.txt");
+
+            // Assert
+            Assert.That(rucksackGroups.Count, Is.EqualTo(2));
+            foreach (var group in rucksackGroups)
+            {
+                Assert.That(group.RucksackCount(), Is.EqualTo(NumRucksacksPerGroup));
+            }
+        }
+
+        [Test]
+        public void RucksackGroup_GetBadge_ReturnsTheCorrectBadgeForTheGroup()
+        {
+            // Arrange
+            var rucksackGroup = new RucksackGroup();
+            rucksackGroup.AddRucksack(new Rucksack("vJrwpWtwJgWrhcsFMMfFFhFp"));
+            rucksackGroup.AddRucksack(new Rucksack("jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL"));
+            rucksackGroup.AddRucksack(new Rucksack("PmmdzqPrVvPwwTWBwg"));
+
+            // Act
+            var badgeCharacter = rucksackGroup.GetBadge();
+
+            // Assert
+            Assert.That(badgeCharacter, Is.EqualTo('r'));
+        }
+
+        [Test]
         public void PartOne_ReturnsCorrectAnswer()
         {
             // Arrange
@@ -96,7 +129,7 @@ namespace AdventOfCode.Tests.Solutions
             var result = solution.PartTwo();
 
             // Assert
-            Assert.That(result, Is.EqualTo(0));
+            Assert.That(result, Is.EqualTo(2_631));
         }
     }
 }
