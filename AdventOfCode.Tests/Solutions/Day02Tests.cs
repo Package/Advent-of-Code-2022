@@ -15,7 +15,8 @@ namespace AdventOfCode.Tests.Solutions
         [TestCase(RockPaperScissors.Scissors, GameOutcome.Draw, RockPaperScissors.Scissors)]
         [TestCase(RockPaperScissors.Scissors, GameOutcome.Won, RockPaperScissors.Rock)]
         [TestCase(RockPaperScissors.Scissors, GameOutcome.Lost, RockPaperScissors.Paper)]
-        public void GetExpectedPlayerTurn_ReturnsTheCorrectMoveToPlay(RockPaperScissors opponent, GameOutcome expectedOutcome, RockPaperScissors moveToPlay)
+        public void GetExpectedPlayerTurn_ReturnsTheCorrectMoveToPlay(RockPaperScissors opponent,
+            GameOutcome expectedOutcome, RockPaperScissors moveToPlay)
         {
             // Arrange
             var solution = new Day02();
@@ -37,8 +38,8 @@ namespace AdventOfCode.Tests.Solutions
         [TestCase(RockPaperScissors.Scissors, RockPaperScissors.Scissors, GameOutcome.Draw)]
         [TestCase(RockPaperScissors.Scissors, RockPaperScissors.Rock, GameOutcome.Won)]
         [TestCase(RockPaperScissors.Scissors, RockPaperScissors.Paper, GameOutcome.Lost)]
-
-        public void GetPlayersOutcomeForTurn_ReturnsTheCorrectGameOutcomeForThePlayer(RockPaperScissors opponent, RockPaperScissors player, GameOutcome expectedOutcome)
+        public void GetPlayersOutcomeForTurn_ReturnsTheCorrectGameOutcomeForThePlayer(RockPaperScissors opponent,
+            RockPaperScissors player, GameOutcome expectedOutcome)
         {
             // Arrange
             var solution = new Day02();
@@ -57,7 +58,8 @@ namespace AdventOfCode.Tests.Solutions
         [TestCase("X", RockPaperScissors.Rock)]
         [TestCase("Y", RockPaperScissors.Paper)]
         [TestCase("Z", RockPaperScissors.Scissors)]
-        public void ConvertValueToRockPaperScissors_ReturnsTheCorrectRockPaperScissorsValue(string value, RockPaperScissors expectedValue)
+        public void ConvertValueToRockPaperScissors_ReturnsTheCorrectRockPaperScissorsValue(string value,
+            RockPaperScissors expectedValue)
         {
             // Arrange
             var solution = new Day02();
@@ -90,7 +92,8 @@ namespace AdventOfCode.Tests.Solutions
         [TestCase(GameOutcome.Lost, 0)]
         [TestCase(GameOutcome.Draw, 3)]
         [TestCase(GameOutcome.Won, 6)]
-        public void GetScoreForOutcome_ReturnsTheCorrectScoreForTheGameOutcome(GameOutcome gameOutcome, int expectedScore)
+        public void GetScoreForOutcome_ReturnsTheCorrectScoreForTheGameOutcome(GameOutcome gameOutcome,
+            int expectedScore)
         {
             // Arrange
             var solution = new Day02();
@@ -106,7 +109,8 @@ namespace AdventOfCode.Tests.Solutions
         [TestCase(RockPaperScissors.Rock, 1)]
         [TestCase(RockPaperScissors.Paper, 2)]
         [TestCase(RockPaperScissors.Scissors, 3)]
-        public void GetRockPaperScissorsValue_ReturnsTheCorrectRockPaperScissorsValue(RockPaperScissors rockPaperScissors, int expectedValue)
+        public void GetRockPaperScissorsValue_ReturnsTheCorrectRockPaperScissorsValue(
+            RockPaperScissors rockPaperScissors, int expectedValue)
         {
             // Arrange
             var solution = new Day02();

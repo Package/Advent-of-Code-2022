@@ -9,7 +9,8 @@ namespace AdventOfCode.Tests.Solutions
         [TestCase("vJrwpWtwJgWrhcsFMMfFFhFp", "vJrwpWtwJgWr", "hcsFMMfFFhFp")]
         [TestCase("jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL", "jqHRNqRjqzjGDLGL", "rsFMfFZSrLrFZsSL")]
         [TestCase("PmmdzqPrVvPwwTWBwg", "PmmdzqPrV", "vPwwTWBwg")]
-        public void Rucksack_Parse_CreatesRucksackWithCorrectCompartments(string input, string expectedFirstCompartment, string expectedSecondCompartment)
+        public void Rucksack_Parse_CreatesRucksackWithCorrectCompartments(string input, string expectedFirstCompartment,
+            string expectedSecondCompartment)
         {
             // Arrange
             var rucksack = new Rucksack(input);
@@ -27,7 +28,8 @@ namespace AdventOfCode.Tests.Solutions
         [TestCase("vJrwpWtwJgWrhcsFMMfFFhFp", "p")]
         [TestCase("jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL", "L")]
         [TestCase("PmmdzqPrVvPwwTWBwg", "P")]
-        public void Rucksack_GetItemsInAllCompartments_ReturnsTheItemsInAllCompartments(string input, string expectedCharacters)
+        public void Rucksack_GetItemsInAllCompartments_ReturnsTheItemsInAllCompartments(string input,
+            string expectedCharacters)
         {
             // Arrange
             var rucksack = new Rucksack(input);

@@ -47,75 +47,37 @@
             return playerTotalScore;
         }
 
-        public RockPaperScissors GetExpectedPlayerTurn(RockPaperScissors opponent, GameOutcome expectedOutcome)
-        {
-            if (opponent == RockPaperScissors.Rock)
+        public RockPaperScissors GetExpectedPlayerTurn(RockPaperScissors opponent, GameOutcome expectedOutcome) =>
+            opponent switch
             {
-                if (expectedOutcome == GameOutcome.Draw)
-                    return RockPaperScissors.Rock;
-                if (expectedOutcome == GameOutcome.Won)
-                    return RockPaperScissors.Paper;
-                if (expectedOutcome == GameOutcome.Lost)
-                    return RockPaperScissors.Scissors;
-            }
+                RockPaperScissors.Rock when expectedOutcome == GameOutcome.Draw => RockPaperScissors.Rock,
+                RockPaperScissors.Rock when expectedOutcome == GameOutcome.Won => RockPaperScissors.Paper,
+                RockPaperScissors.Rock when expectedOutcome == GameOutcome.Lost => RockPaperScissors.Scissors,
+                RockPaperScissors.Paper when expectedOutcome == GameOutcome.Draw => RockPaperScissors.Paper,
+                RockPaperScissors.Paper when expectedOutcome == GameOutcome.Won => RockPaperScissors.Scissors,
+                RockPaperScissors.Paper when expectedOutcome == GameOutcome.Lost => RockPaperScissors.Rock,
+                RockPaperScissors.Scissors when expectedOutcome == GameOutcome.Draw => RockPaperScissors.Scissors,
+                RockPaperScissors.Scissors when expectedOutcome == GameOutcome.Won => RockPaperScissors.Rock,
+                RockPaperScissors.Scissors when expectedOutcome == GameOutcome.Lost => RockPaperScissors.Paper,
+                _ => throw new Exception(
+                    $"Reached Unsupported State in GetExpectedPlayerTurn. ({opponent}) ({expectedOutcome})")
+            };
 
-            if (opponent == RockPaperScissors.Paper)
+        public GameOutcome GetPlayersOutcomeForTurn(RockPaperScissors opponent, RockPaperScissors player) =>
+            opponent switch
             {
-                if (expectedOutcome == GameOutcome.Draw)
-                    return RockPaperScissors.Paper;
-                if (expectedOutcome == GameOutcome.Won)
-                    return RockPaperScissors.Scissors;
-                if (expectedOutcome == GameOutcome.Lost)
-                    return RockPaperScissors.Rock;
-            }
-
-            if (opponent == RockPaperScissors.Scissors)
-            {
-                if (expectedOutcome == GameOutcome.Draw)
-                    return RockPaperScissors.Scissors;
-                if (expectedOutcome == GameOutcome.Won)
-                    return RockPaperScissors.Rock;
-                if (expectedOutcome == GameOutcome.Lost)
-                    return RockPaperScissors.Paper;
-            }
-
-            throw new Exception($"Reached Unsupported State in GetExpectedPlayerTurn. ({opponent}) ({expectedOutcome})");
-        }
-
-        public GameOutcome GetPlayersOutcomeForTurn(RockPaperScissors opponent, RockPaperScissors player)
-        {
-            if (opponent == RockPaperScissors.Rock)
-            {
-                if (player == RockPaperScissors.Rock)
-                    return GameOutcome.Draw;
-                if (player == RockPaperScissors.Paper)
-                    return GameOutcome.Won;
-                if (player == RockPaperScissors.Scissors)
-                    return GameOutcome.Lost;
-            }
-
-            if (opponent == RockPaperScissors.Paper)
-            {
-                if (player == RockPaperScissors.Rock)
-                    return GameOutcome.Lost;
-                if (player == RockPaperScissors.Paper)
-                    return GameOutcome.Draw;
-                if (player == RockPaperScissors.Scissors)
-                    return GameOutcome.Won;
-            }
-
-            if (opponent == RockPaperScissors.Scissors)
-            {
-                if (player == RockPaperScissors.Rock)
-                    return GameOutcome.Won;
-                if (player == RockPaperScissors.Paper)
-                    return GameOutcome.Lost;
-                if (player == RockPaperScissors.Scissors)
-                    return GameOutcome.Draw;
-            }
-
-            throw new Exception($"Reached Unsupported State in GetPlayersOutcomeForTurn. ({opponent}) vs ({player})");
-        }
+                RockPaperScissors.Rock when player == RockPaperScissors.Rock => GameOutcome.Draw,
+                RockPaperScissors.Rock when player == RockPaperScissors.Paper => GameOutcome.Won,
+                RockPaperScissors.Rock when player == RockPaperScissors.Scissors => GameOutcome.Lost,
+                RockPaperScissors.Paper when player == RockPaperScissors.Rock => GameOutcome.Lost,
+                RockPaperScissors.Paper when player == RockPaperScissors.Paper => GameOutcome.Draw,
+                RockPaperScissors.Paper when player == RockPaperScissors.Scissors => GameOutcome.Won,
+                RockPaperScissors.Scissors when player == RockPaperScissors.Rock => GameOutcome.Won,
+                RockPaperScissors.Scissors when player == RockPaperScissors.Paper => GameOutcome.Lost,
+                RockPaperScissors.Scissors when player == RockPaperScissors.Scissors => GameOutcome.Draw,
+                _ => throw new Exception(
+                    $"Reached Unsupported State in GetPlayersOutcomeForTurn. ({opponent}) vs ({player})")
+            };
 
         public RockPaperScissors ConvertValueToRockPaperScissors(string value) =>
             value switch

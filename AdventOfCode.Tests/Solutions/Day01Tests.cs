@@ -7,13 +7,14 @@ namespace AdventOfCode.Tests.Solutions
         [Test]
         [TestCase(1, 24_000)]
         [TestCase(3, 45_000)]
-        public void GetElfCarryingMostCaloriesInFile_ReturnsTheCorrectCalories_ForTheExampleCases(int numElfs, int expectedCalories)
+        public void GetElfCarryingMostCaloriesInFile_ReturnsTheCorrectCalories_ForTheExampleCases(int numElves,
+            int expectedCalories)
         {
             // Arrange
             var solution = new Day01();
 
             // Act
-            var mostCals = solution.GetElfCarryingMostCaloriesInFile(@"Input/Day01_Example.txt", numElfs);
+            var mostCals = solution.GetElfCarryingMostCaloriesInFile(@"Input/Day01_Example.txt", numElves);
 
             // Assert
             Assert.That(mostCals, Is.EqualTo(expectedCalories));

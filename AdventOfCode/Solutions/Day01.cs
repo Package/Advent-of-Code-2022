@@ -12,7 +12,7 @@
             return GetElfCarryingMostCaloriesInFile(@"Input/Day01_Real.txt", 3);
         }
 
-        public int GetElfCarryingMostCaloriesInFile(string filePath, int numElfsToTake)
+        public int GetElfCarryingMostCaloriesInFile(string filePath, int numElvesToTake)
         {
             var input = File.ReadAllLines(filePath);
 
@@ -34,7 +34,7 @@
 
             elfTotals.Add(currentTotal);
 
-            return elfTotals.OrderByDescending(_ => _).Take(numElfsToTake).Sum();
+            return elfTotals.OrderByDescending(_ => _).Take(numElvesToTake).Sum();
         }
     }
 }
