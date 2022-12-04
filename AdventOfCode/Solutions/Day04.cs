@@ -8,12 +8,16 @@ namespace AdventOfCode.Solutions
 
             return input
                 .Select(ParseLine)
-                .Count(pairs => IsPairOverlapping(pairs.firstPair, pairs.secondPair));
+                .Count(pairs => IsFullPairOverlapping(pairs.firstPair, pairs.secondPair));
         }
 
         public int PartTwo()
         {
-            return 0;
+            var input = File.ReadAllLines(@"Input/Day04_Real.txt");
+
+            return input
+                .Select(ParseLine)
+                .Count(pairs => IsPartOfPairOverlapping(pairs.firstPair, pairs.secondPair));
         }
 
         public (Pair firstPair, Pair secondPair) ParseLine(string line)
@@ -29,9 +33,15 @@ namespace AdventOfCode.Solutions
             return (firstPair, secondPair);
         }
 
-        public bool IsPairOverlapping(Pair firstPair, Pair secondPair)
+        public bool IsFullPairOverlapping(Pair firstPair, Pair secondPair)
             => (firstPair.Start >= secondPair.Start && firstPair.End <= secondPair.End) ||
                (secondPair.Start >= firstPair.Start && secondPair.End <= firstPair.End);
+
+        public bool IsPartOfPairOverlapping(Pair firstPair, Pair secondPair)
+            => (firstPair.Start >= secondPair.Start && firstPair.Start <= secondPair.End) ||
+               (firstPair.End >= secondPair.Start && firstPair.End <= secondPair.End) ||
+               (secondPair.Start >= firstPair.Start && secondPair.Start <= firstPair.End) ||
+               (secondPair.End >= firstPair.Start && secondPair.End <= firstPair.End);
 
         public record Pair(int Start, int End);
     }

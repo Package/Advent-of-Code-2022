@@ -38,18 +38,38 @@ namespace AdventOfCode.Tests.Solutions
         [TestCase("2-8,3-7", true)]
         [TestCase("6-6,4-6", true)]
         [TestCase("2-6,4-8", false)]
-        public void PairOverlaps_ReturnsWhetherThePairIsOverlapping(string line, bool expectedOverlapping)
+        public void IsFullPairOverlapping_ReturnsWhetherThePairIsOverlapping(string line, bool expectedOverlapping)
         {
             // Arrange
             var solution = new Day04();
             var (firstPair, secondPair) = solution.ParseLine(line);
 
             // Act
-            var isOverlapping = solution.IsPairOverlapping(firstPair, secondPair);
+            var isOverlapping = solution.IsFullPairOverlapping(firstPair, secondPair);
             
             // Assert
             Assert.That(isOverlapping, Is.EqualTo(expectedOverlapping));
         }
+        
+        [Test]
+        [TestCase("2-4,6-8", false)]
+        [TestCase("2-3,4-5", false)]
+        [TestCase("5-7,7-9", true)]
+        [TestCase("2-8,3-7", true)]
+        [TestCase("6-6,4-6", true)]
+        [TestCase("2-6,4-8", true)]
+        public void IsPartOfPairOverlapping_ReturnsWhetherThePairIsOverlapping(string line, bool expectedOverlapping)
+        {
+            // Arrange
+            var solution = new Day04();
+            var (firstPair, secondPair) = solution.ParseLine(line);
+
+            // Act
+            var isOverlapping = solution.IsPartOfPairOverlapping(firstPair, secondPair);
+            
+            // Assert
+            Assert.That(isOverlapping, Is.EqualTo(expectedOverlapping));
+        }        
         
         [Test]
         public void PartOne_ReturnsCorrectAnswer()
@@ -74,7 +94,7 @@ namespace AdventOfCode.Tests.Solutions
             var result = solution.PartTwo();
 
             // Assert
-            Assert.That(result, Is.EqualTo(0));
+            Assert.That(result, Is.EqualTo(926));
         }
     }
 }
