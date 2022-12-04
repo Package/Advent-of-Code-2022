@@ -1,7 +1,11 @@
+using System.Text.RegularExpressions;
+
 namespace AdventOfCode.Solutions
 {
     public class Day04 : ISolution<int>
     {
+        private readonly Regex _linePattern = new(@"^([\d]+)-([\d]+),([\d]+)-([\d]+)$", RegexOptions.Compiled);
+        
         public int PartOne()
         {
             var input = File.ReadAllLines(@"Input/Day04_Real.txt");
@@ -22,13 +26,10 @@ namespace AdventOfCode.Solutions
 
         public (Pair firstPair, Pair secondPair) ParseLine(string line)
         {
-            var split = line.Split(",");
+            var match = _linePattern.Match(line);
 
-            var firstPairLine = split[0].Split("-");
-            var secondPairLine = split[1].Split("-");
-
-            var firstPair = new Pair(int.Parse(firstPairLine[0]), int.Parse(firstPairLine[1]));
-            var secondPair = new Pair(int.Parse(secondPairLine[0]), int.Parse(secondPairLine[1]));
+            var firstPair = new Pair(int.Parse(match.Groups[1].Value), int.Parse(match.Groups[2].Value));
+            var secondPair = new Pair(int.Parse(match.Groups[3].Value), int.Parse(match.Groups[4].Value));
 
             return (firstPair, secondPair);
         }
