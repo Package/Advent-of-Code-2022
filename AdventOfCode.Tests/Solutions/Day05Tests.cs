@@ -57,7 +57,21 @@ namespace AdventOfCode.Tests.Solutions
                 
                 Assert.True(cratesMap[3].Contains("P"));
             });
-        }        
+        }
+
+        [Test]
+        public void GetFirstItemInEveryCrate_ReturnsStringWithFirstItemInEveryCrate()
+        {
+            // Arrange
+            var solution = new Day05();
+            var crateMap = solution.ParseInitialCrates(@"Input/Day05_Example.txt");
+
+            // Act
+            var result = solution.GetFirstItemInEveryCrate(crateMap);
+
+            // Assert
+            Assert.That(result, Is.EqualTo("NDP"));
+        }
         
         [Test]
         public void PartOne_ReturnsCorrectAnswer()

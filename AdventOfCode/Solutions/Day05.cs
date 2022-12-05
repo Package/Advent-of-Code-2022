@@ -9,29 +9,15 @@ namespace AdventOfCode.Solutions
 
         public string PartOne()
         {
-            var crateMap = ParseInitialCrates(@"Input/Day05_Real.txt");
-            var moveInstructions = ParseInstructions(@"Input/Day05_Real.txt");
-
-            foreach (var instruction in moveInstructions)
-            {
-                var movingFromCrate = crateMap[instruction.FromCrate];
-                var movingToCrate = crateMap[instruction.ToCreate];
-                
-                for (var amount = 0; amount < instruction.AmountToMove; amount++)
-                {
-                    movingToCrate.Push(movingFromCrate.Pop());
-                }
-            }
-
-            var firstItemsInEachStack = string.Empty;
-            
-            var sortedCrateMap = crateMap.OrderBy(cm => cm.Key).ToList();
-            sortedCrateMap.ForEach(stack => firstItemsInEachStack += stack.Value.Peek());
-
-            return firstItemsInEachStack;
+            return FollowCrateInstructions(shouldReverse: false);
         }
         
         public string PartTwo()
+        {
+            return FollowCrateInstructions(shouldReverse: true);
+        }
+
+        private string FollowCrateInstructions(bool shouldReverse)
         {
             var crateMap = ParseInitialCrates(@"Input/Day05_Real.txt");
             var moveInstructions = ParseInstructions(@"Input/Day05_Real.txt");
@@ -43,14 +29,19 @@ namespace AdventOfCode.Solutions
                 var poppedCrates = new List<string>();
                 
                 for (var amount = 0; amount < instruction.AmountToMove; amount++)
-                {
                     poppedCrates.Add(movingFromCrate.Pop());
-                }
 
-                poppedCrates.Reverse();
+                if (shouldReverse)
+                    poppedCrates.Reverse();
+                
                 poppedCrates.ForEach(crate => movingToCrate.Push(crate));
             }
 
+            return GetFirstItemInEveryCrate(crateMap);
+        }
+
+        public string GetFirstItemInEveryCrate(Dictionary<int, Stack<string>> crateMap)
+        {
             var firstItemsInEachStack = string.Empty;
             
             var sortedCrateMap = crateMap.OrderBy(cm => cm.Key).ToList();
@@ -58,6 +49,7 @@ namespace AdventOfCode.Solutions
 
             return firstItemsInEachStack;
         }
+        
         
         public List<CrateInstruction> ParseInstructions(string inputFile)
         {
