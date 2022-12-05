@@ -82,7 +82,7 @@ namespace AdventOfCode.Tests.Solutions
             var result = solution.PartTwo();
 
             // Assert
-            Assert.That(result, Is.EqualTo(string.Empty));
+            Assert.That(result, Is.EqualTo("QZFJRWHGS"));
         }
     }
 }

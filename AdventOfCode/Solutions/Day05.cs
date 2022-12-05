@@ -33,7 +33,30 @@ namespace AdventOfCode.Solutions
         
         public string PartTwo()
         {
-            return string.Empty;
+            var crateMap = ParseInitialCrates(@"Input/Day05_Real.txt");
+            var moveInstructions = ParseInstructions(@"Input/Day05_Real.txt");
+
+            foreach (var instruction in moveInstructions)
+            {
+                var movingFromCrate = crateMap[instruction.FromCrate];
+                var movingToCrate = crateMap[instruction.ToCreate];
+                var poppedCrates = new List<string>();
+                
+                for (var amount = 0; amount < instruction.AmountToMove; amount++)
+                {
+                    poppedCrates.Add(movingFromCrate.Pop());
+                }
+
+                poppedCrates.Reverse();
+                poppedCrates.ForEach(crate => movingToCrate.Push(crate));
+            }
+
+            var firstItemsInEachStack = string.Empty;
+            
+            var sortedCrateMap = crateMap.OrderBy(cm => cm.Key).ToList();
+            sortedCrateMap.ForEach(stack => firstItemsInEachStack += stack.Value.Peek());
+
+            return firstItemsInEachStack;
         }
         
         public List<CrateInstruction> ParseInstructions(string inputFile)
