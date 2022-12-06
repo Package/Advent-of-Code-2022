@@ -1,4 +1,5 @@
 using AdventOfCode.Solutions;
+using static AdventOfCode.Solutions.Day06;
 
 namespace AdventOfCode.Tests.Solutions
 {
@@ -10,17 +11,35 @@ namespace AdventOfCode.Tests.Solutions
         [TestCase("nppdvjthqldpwncqszvftbrmjlhg", 6)]
         [TestCase("nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg", 10)]
         [TestCase("zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw", 11)]
-        public void GetStartOfPacket_ReturnsTheCorrectStartOfPacketIndex(string packetString, int expectedStartOfPacket)
+        public void GetStartMarker_ReturnsTheCorrectStartOfPacketIndex(string packetString, int expectedStartOfPacket)
         {
             // Arrange
             var solution = new Day06();
 
             // Act
-            var startOfPacket = solution.GetStartOfPacket(packetString);
+            var startOfPacket = solution.GetStartMarker(packetString, StartOfPacketMarkerSize);
 
             // Assert
             Assert.That(startOfPacket, Is.EqualTo(expectedStartOfPacket));
         }
+        
+        [Test]
+        [TestCase("mjqjpqmgbljsphdztnvjfqwrcgsmlb", 19)]
+        [TestCase("bvwbjplbgvbhsrlpgdmjqwftvncz", 23)]
+        [TestCase("nppdvjthqldpwncqszvftbrmjlhg", 23)]
+        [TestCase("nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg", 29)]
+        [TestCase("zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw", 26)]
+        public void GetStartMarker_ReturnsTheCorrectStartOfMessageIndex(string packetString, int expectedStartOfMessage)
+        {
+            // Arrange
+            var solution = new Day06();
+
+            // Act
+            var startOfPacket = solution.GetStartMarker(packetString, StartOfMessageMarkerSize);
+
+            // Assert
+            Assert.That(startOfPacket, Is.EqualTo(expectedStartOfMessage));
+        }        
         
         [Test]
         public void PartOne_ReturnsCorrectAnswer()
@@ -45,7 +64,7 @@ namespace AdventOfCode.Tests.Solutions
             var result = solution.PartTwo();
 
             // Assert
-            Assert.That(result, Is.EqualTo(0));
+            Assert.That(result, Is.EqualTo(2_773));
         }
     }
 }

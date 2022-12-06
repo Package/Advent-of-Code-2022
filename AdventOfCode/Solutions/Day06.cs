@@ -2,31 +2,33 @@ namespace AdventOfCode.Solutions
 {
     public class Day06 : ISolution<int>
     {
-        private const int DefaultPacketSize = 4;
+        public const int StartOfPacketMarkerSize = 4;
+        public const int StartOfMessageMarkerSize = 14;
         
         public int PartOne()
         {
             var input = File.ReadAllText(@"Input/Day06_Real.txt");
-            return GetStartOfPacket(input);
+            return GetStartMarker(input, packetSize: StartOfPacketMarkerSize);
         }
 
         public int PartTwo()
         {
-            return 0;
+            var input = File.ReadAllText(@"Input/Day06_Real.txt");
+            return GetStartMarker(input, packetSize: StartOfMessageMarkerSize);
         }
 
-        public int GetStartOfPacket(string packetString, int packetSize = DefaultPacketSize)
+        public int GetStartMarker(string packetString, int packetSize)
         {
             for (var index = 0; index < packetString.Length - packetSize; index++)
             {
-                var currentRange = packetString.Substring(index, 4);
+                var currentRange = packetString.Substring(index, packetSize);
                 var uniqueCharacters = currentRange.ToCharArray().Distinct();
 
                 if (uniqueCharacters.Count() == packetSize)
                     return index + packetSize;
             }
 
-            throw new Exception($"Could not find a start of packet marker in the input string: {packetString}");
+            throw new Exception($"Could not find a start marker in the input string: {packetString}");
         }
     }
 }
