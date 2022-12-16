@@ -24,7 +24,21 @@ namespace AdventOfCode.Solutions
 
         public int PartTwo()
         {
-            return 0;
+            var map = ParseCells(@"Input/Day08_Real.txt");
+
+            var bestViewingDistance = 0;
+            
+            for (var x = 0; x < map.Width; x++)
+            {
+                for (var y = 0; y < map.Height; y++)
+                {
+                    var currentViewingDistance = map.GetTreeViewingDistance(x, y);
+                    if (currentViewingDistance > bestViewingDistance)
+                        bestViewingDistance = currentViewingDistance;
+                }
+            }
+                
+            return bestViewingDistance;
         }
 
         public Map ParseCells(string inputFile)
@@ -68,51 +82,93 @@ namespace AdventOfCode.Solutions
                 if (y == 0 || y == Width - 1 || y == Height - 1)
                     return true;
 
-                return IsVisibleUp(x, y) || IsVisibleDown(x, y) || IsVisibleLeft(x, y) || IsVisibleRight(x, y);
-            }
+                var (visibleUp, distanceUp) = VisibilityUp(x, y);
+                var (visibleDown, distanceDown) = VisibilityDown(x, y);
+                var (visibleLeft, distanceLeft) = VisibilityLeft(x, y);
+                var (visibleRight, distanceRight) = VisibilityRight(x, y);
 
-            private bool IsVisibleDown(int x, int y)
+                return visibleUp || visibleDown || visibleLeft || visibleRight;
+            }
+            
+            public int GetTreeViewingDistance(int x, int y)
             {
+                // Tree on the edge - always visible
+                if (x == 0 || x == Width - 1 || x == Height - 1)
+                    return 0;
+                
+                // Tree on the edge - always visible
+                if (y == 0 || y == Width - 1 || y == Height - 1)
+                    return 0;
+
+                var (visibleUp, distanceUp) = VisibilityUp(x, y);
+                var (visibleDown, distanceDown) = VisibilityDown(x, y);
+                var (visibleLeft, distanceLeft) = VisibilityLeft(x, y);
+                var (visibleRight, distanceRight) = VisibilityRight(x, y);
+
+                if (visibleUp || visibleDown || visibleLeft || visibleRight)
+                    return distanceUp * distanceLeft * distanceRight * distanceDown;
+
+                return 0;
+            }            
+
+            private (bool isVisible, int distance) VisibilityDown(int x, int y)
+            {
+                var visibility = 0;
+                
                 for (var currY = y + 1; currY < Height; currY++)
                 {
+                    visibility++;
+
                     if (Cells[x, currY].Height >= Cells[x, y].Height)
-                        return false; 
+                        return (false, visibility); 
                 }
                 
-                return true;
+                return (true, visibility);
             }
 
-            private bool IsVisibleUp(int x, int y)
+            private (bool isVisible, int distance) VisibilityUp(int x, int y)
             {
+                var visibility = 0;
+                
                 for (var currY = y - 1; currY >= 0; currY--)
                 {
+                    visibility++;
+
                     if (Cells[x, currY].Height >= Cells[x, y].Height)
-                        return false;  
+                        return (false, visibility);
                 }
   
-                return true;
+                return (true, visibility);
             }
 
-            private bool IsVisibleRight(int x, int y)
+            private (bool isVisible, int distance) VisibilityRight(int x, int y)
             {
+                var visibility = 0;
+                
                 for (var currX = x + 1; currX < Width; currX++)
                 {
+                    visibility++;
+                    
                     if (Cells[currX, y].Height >= Cells[x, y].Height)
-                        return false;   
+                        return (false, visibility);
                 }
                 
-                return true;
+                return (true, visibility);
             }
 
-            private bool IsVisibleLeft(int x, int y)
+            private (bool isVisible, int distance) VisibilityLeft(int x, int y)
             {
+                var visibility = 0;
+                
                 for (var currX = x - 1; currX >= 0; currX--)
                 {
+                    visibility++;
+
                     if (Cells[currX, y].Height >= Cells[x, y].Height)
-                        return false;                   
+                        return (false, visibility);
                 }
                 
-                return true;
+                return (true, visibility);
             }
         }
     }
